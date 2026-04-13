@@ -1,219 +1,130 @@
-import { AbsoluteFill, useVideoConfig, useCurrentFrame, interpolate, Easing } from "remotion";
-import { theme } from "../theme";
-import { animations } from "../utils/animations";
-import { loadFont } from "@remotion/google-fonts/Inter";
-import { loadFont as loadSecondaryFont } from "@remotion/google-fonts/Outfit";
 import React from "react";
-
-const { fontFamily: primaryFont } = loadFont();
-const { fontFamily: secondaryFont } = loadSecondaryFont();
-
-const jobs = [
-    {
-        company: "Operation Nation",
-        role: "Full Stack Developer",
-        period: "Recent",
-        desc: "Built AI-powered presentation platform & 300% conversion lift",
-    },
-    {
-        company: "BuiltForYou Digital",
-        role: "Senior Full Stack Developer",
-        period: "Past",
-        desc: "Architected scalable streaming products & secure auth systems",
-    },
-    {
-        company: "Matthew Luke Studio",
-        role: "Full Stack Developer",
-        period: "Past",
-        desc: "Delivered 12+ custom web apps & headless CMS integrations",
-    },
-    {
-        company: "123workforce",
-        role: "Frontend Web Developer",
-        period: "Past",
-        desc: "Built responsive workforce management frontends & component libraries",
-    },
-    {
-        company: "Boi Kotha",
-        role: "Full Stack Developer",
-        period: "Past",
-        desc: "Engineered book publishing platform with secure payments",
-    },
-    {
-        company: "Code Builder IT",
-        role: "Full Stack Developer",
-        period: "Past",
-        desc: "Created custom CMS & ecommerce platforms for local clients",
-    },
-];
+import { interpolate, useCurrentFrame } from "remotion";
+import { recentRoles } from "../content";
+import { BulletRow, Eyebrow, GlassCard, SectionHeading, ShowcaseShell } from "../shared";
+import { theme } from "../theme";
 
 export const ExperienceScene: React.FC = () => {
-    const frame = useCurrentFrame();
-    const { fps } = useVideoConfig();
+  const frame = useCurrentFrame();
 
-    const titleAnim = animations.fadeInUp(frame, fps, 10);
+  return (
+    <ShowcaseShell frame={frame}>
+      <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
+        <Eyebrow label="Career snapshot" />
+        <SectionHeading
+          title="Recent"
+          accent="roles"
+          body="The strongest hiring signal is in the current stack: AI product work, conversion-focused UX, performance tuning, and modern full-stack delivery."
+        />
+      </div>
 
-    // Timeline Line Animation - extend to cover all items
-    const lineHeight = interpolate(frame, [20, 100], [0, 1800], {
-        extrapolateLeft: "clamp", extrapolateRight: "clamp"
-    });
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
+          gap: 24,
+        }}
+      >
+        {recentRoles.map((role, index) => {
+          const cardIn = interpolate(frame, [12 + index * 8, 28 + index * 8], [0, 1], {
+            extrapolateLeft: "clamp",
+            extrapolateRight: "clamp",
+          });
 
-    // Scroll Animation
-    // Scroll up as new items appear
-    const scrollY = interpolate(frame, [60, 300], [0, -900], {
-        extrapolateLeft: "clamp",
-        extrapolateRight: "clamp",
-        easing: Easing.inOut(Easing.quad),
-    });
-
-    return (
-        <AbsoluteFill
-            style={{
-                background: theme.colors.background,
-                fontFamily: primaryFont,
-                color: theme.colors.text.primary,
-                padding: `60px ${theme.layout.contentPadding}px`,
-                overflow: "hidden", // Hide scroll overflow
-            }}
-        >
-            <h2
-                style={{
-                    fontSize: "60px",
-                    fontWeight: 800,
-                    color: theme.colors.text.primary,
-                    marginBottom: "60px",
-                    textAlign: "center",
-                    textTransform: "uppercase",
-                    letterSpacing: "4px",
-                    zIndex: 10,
-                    ...titleAnim,
-                }}
-            >
-                <span style={{ color: theme.colors.primary }}>Career</span> Timeline
-            </h2>
-
-            {/* Fixed Timeline Line - OUTSIDE the scroll container */}
+          return (
             <div
-                style={{
-                    position: "absolute",
-                    left: "50%",
-                    top: "180px", // Align with first item
-                    bottom: 0,
-                    width: "4px",
-                    background: theme.colors.border,
-                    transform: "translateX(-50%)",
-                    zIndex: 10, // Ensure on top of scrolling content
-                    height: "80%", // Fixed height
-                    overflow: "hidden",
-                }}
+              key={role.company}
+              style={{
+                opacity: cardIn,
+                transform: `translateY(${interpolate(cardIn, [0, 1], [38, 0])}px)`,
+              }}
             >
-                <div
+              <GlassCard tone={role.tone} style={{ minHeight: 380 }}>
+                <div style={{ display: "flex", flexDirection: "column", gap: 18 }}>
+                  <div
                     style={{
-                        width: "100%",
-                        height: lineHeight,
-                        background: theme.colors.accent,
-                        backgroundImage: `linear-gradient(to bottom, ${theme.colors.primary}, ${theme.colors.accent})`,
+                      fontFamily: theme.fonts.mono,
+                      fontSize: 15,
+                      letterSpacing: "0.06em",
+                      textTransform: "uppercase",
+                      color: theme.colors.tones[role.tone],
                     }}
-                />
-            </div>
-
-            <div style={{
-                position: "relative",
-                maxWidth: "1000px",
-                margin: "0 auto",
-                transform: `translateY(${scrollY}px)`,
-                height: "100%",
-            }}>
-
-                {/* Timeline Items */}
-                <div style={{ display: "flex", flexDirection: "column", gap: "60px", paddingBottom: "100px", }}>
-                    {jobs.map((job, index) => {
-                        const delay = 30 + index * 25; // Slower stagger
-                        const isLeft = index % 2 === 0;
-
-                        const cardAnim = animations.slideIn(
-                            frame, fps, isLeft ? "left" : "right", delay
-                        );
-
-                        // Node scale animation
-                        const nodeScale = interpolate(frame - delay, [0, 15], [0, 1], {
-                            extrapolateLeft: "clamp", extrapolateRight: "clamp"
-                        });
-
-                        return (
-                            <div
-                                key={job.company}
-                                style={{
-                                    display: "flex",
-                                    justifyContent: isLeft ? "flex-end" : "flex-start",
-                                    position: "relative",
-                                    width: "100%",
-                                }}
-                            >
-                                {/* Center Node - Fixed relative to the item but high z-index */}
-                                <div
-                                    style={{
-                                        position: "absolute",
-                                        left: "50%",
-                                        top: "30px",
-                                        width: "20px",
-                                        height: "20px",
-                                        background: theme.colors.background,
-                                        border: `4px solid ${theme.colors.accent}`,
-                                        borderRadius: "50%",
-                                        transform: `translateX(-50%) scale(${nodeScale})`,
-                                        zIndex: 20, // Higher than line
-                                        boxShadow: `0 0 15px ${theme.colors.accent}80`,
-                                    }}
-                                />
-
-                                {/* Content Card */}
-                                <div
-                                    style={{
-                                        width: "45%",
-                                        background: theme.colors.surface,
-                                        padding: "25px",
-                                        borderRadius: theme.layout.borderRadius,
-                                        border: `1px solid ${theme.colors.border}`,
-                                        ...cardAnim,
-                                    }}
-                                >
-                                    <h3
-                                        style={{
-                                            fontSize: "24px",
-                                            margin: "0 0 5px 0",
-                                            color: theme.colors.primary,
-                                        }}
-                                    >
-                                        {job.company}
-                                    </h3>
-                                    <div
-                                        style={{
-                                            fontSize: "18px",
-                                            fontWeight: 600,
-                                            marginBottom: "10px",
-                                            color: theme.colors.text.primary,
-                                        }}
-                                    >
-                                        {job.role}
-                                    </div>
-                                    <p
-                                        style={{
-                                            fontFamily: secondaryFont,
-                                            fontSize: "16px",
-                                            margin: 0,
-                                            color: theme.colors.text.secondary,
-                                            lineHeight: 1.5,
-                                        }}
-                                    >
-                                        {job.desc}
-                                    </p>
-                                </div>
-                            </div>
-                        );
-                    })}
+                  >
+                    {role.meta}
+                  </div>
+                  <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                    <div
+                      style={{
+                        fontFamily: theme.fonts.heading,
+                        fontSize: 42,
+                        lineHeight: 1,
+                        margin: 0,
+                      }}
+                    >
+                      {role.role}
+                    </div>
+                    <div
+                      style={{
+                        fontSize: 28,
+                        fontWeight: 800,
+                        color: theme.colors.tones[role.tone],
+                      }}
+                    >
+                      {role.company}
+                    </div>
+                  </div>
+                  <p
+                    style={{
+                      margin: 0,
+                      fontSize: 22,
+                      lineHeight: 1.45,
+                      color: theme.colors.text.secondary,
+                    }}
+                  >
+                    {role.summary}
+                  </p>
+                  <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+                    {role.wins.map((win) => (
+                      <BulletRow key={win} text={win} tone={role.tone} />
+                    ))}
+                  </div>
                 </div>
+              </GlassCard>
             </div>
-        </AbsoluteFill>
-    );
+          );
+        })}
+      </div>
+
+      <GlassCard tone="gold" style={{ padding: 22 }}>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            gap: 24,
+          }}
+        >
+          <div
+            style={{
+              fontFamily: theme.fonts.heading,
+              fontSize: 32,
+              lineHeight: 1,
+            }}
+          >
+            Earlier experience
+          </div>
+          <div
+            style={{
+              color: theme.colors.text.secondary,
+              fontSize: 22,
+              lineHeight: 1.4,
+              textAlign: "right",
+            }}
+          >
+            123workforce (2019–2020), Boi Kotha (2018–2019), and Code Builder IT (2016–2018) built the foundation across ecommerce, frontend systems, and full-stack delivery.
+          </div>
+        </div>
+      </GlassCard>
+    </ShowcaseShell>
+  );
 };
