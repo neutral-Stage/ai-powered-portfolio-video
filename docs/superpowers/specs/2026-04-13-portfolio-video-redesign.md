@@ -120,6 +120,8 @@ The current 35-second video is accurate but reads like an animated résumé slid
 
 **Implementation:** Add a pre-reveal overlay div that's `position: absolute, inset: 0` centered layout. Use `interpolate` for per-line fade-in and a single fade-out. The existing layout's `reveal` interpolation starts from frame 75 instead of frame 0.
 
+**Exit interpolation:** The current `exit = interpolate(frame, [118, 135], [1, 0])` must be updated to `interpolate(frame, [160, 180], [1, 0])` — proportionally shifted to fit the new 180f duration. Do NOT flat-shift by +75 (that would place the exit at [193, 210], beyond the scene boundary). The exit window is `[160, 180]`.
+
 ### Scene 4 — ExperienceScene (180f)
 
 **Layout change:** `repeat(3, 1fr)` → `repeat(2, 1fr)`  
@@ -130,7 +132,8 @@ The current 35-second video is accurate but reads like an animated résumé slid
 ### Scene 5 — ProjectsScene (210f)
 
 **Layout change:** `repeat(2, 1fr)` → `repeat(3, 1fr)`  
-**Card height:** `minHeight: 285` → `minHeight: 240`  
+**Card height:** `minHeight: 285` → `minHeight: 260` (not 240 — content at fontSize 42 title + category + 2-line summary + tags + gaps measures ~279px minimum, so 260 is safe with compact copy; 240 would overflow)  
+**New project summary copy must be kept to ≤2 lines** at fontSize 22 to stay within 260px. TYPO SIEGE and AI-Powered Portfolio Video summaries above are already written to fit.  
 **Special badge on AI-Powered Portfolio Video card:** Replace the tone dot with a glowing `<Tag>` reading `"★ This video"` using `tone: "sky"`.  
 **Stagger timing:** 6 cards, change `index * 8` → `index * 5` to fit all within 210f.
 
@@ -149,11 +152,11 @@ The current 35-second video is accurate but reads like an animated résumé slid
 performance-focused delivery. Remote full-time, contract, or freelance."
 ```
 
-**Education card:** Add a 4th mini-card below the 3 contact cards:
+**Education card:** Add a 4th mini-card into the existing bottom row alongside Location/GitHub/LinkedIn:
 ```ts
 { label: "Education", value: "B.Sc. CSE · National University of Bangladesh · 2018", tone: "sky" }
 ```
-Grid becomes `repeat(4, 1fr)` for the bottom row.
+The bottom grid becomes `repeat(4, 1fr)` — Education sits as the 4th column in the same row as Location, GitHub, and LinkedIn. At 1920px total width, the right column (~1130px) divided into 4 cards with 18px gaps = ~270px per card, which accommodates the education text comfortably.
 
 ---
 
@@ -162,13 +165,14 @@ Grid becomes `repeat(4, 1fr)` for the bottom row.
 | File | Change Type |
 |------|-------------|
 | `src/remotion/Showcase/content.ts` | Content update — all fields above |
-| `src/remotion/Showcase/scenes/IntroScene.tsx` | Add meta hook pre-reveal phase |
+| `src/remotion/Showcase/scenes/IntroScene.tsx` | Add meta hook pre-reveal phase, update exit interpolation to `[160, 180]` |
 | `src/remotion/Showcase/scenes/ExperienceScene.tsx` | 2×2 grid, 4 roles, updated footer |
-| `src/remotion/Showcase/scenes/ProjectsScene.tsx` | 3×2 grid, 6 projects, special badge |
-| `src/remotion/Showcase/scenes/ContactScene.tsx` | New CTA copy, education card |
+| `src/remotion/Showcase/scenes/ProjectsScene.tsx` | 3×2 grid, 6 projects, special badge, minHeight 260 |
+| `src/remotion/Showcase/scenes/ContactScene.tsx` | New CTA copy, 4-column bottom row with education card |
+| `src/remotion/Showcase/ShowcaseVideo.tsx` | Update IntroScene sequence 135→180, ContactScene sequence 195→210 |
 | `types/constants.ts` | `SHOWCASE_DURATION_IN_FRAMES` 1050 → 1350 |
 
-**No changes needed:** `ShowcaseVideo.tsx`, `theme.ts`, `shared.tsx`, `AboutScene.tsx`, `SkillsScene.tsx`, `StatsScene.tsx`
+**No changes needed:** `theme.ts`, `shared.tsx`, `AboutScene.tsx`, `SkillsScene.tsx`, `StatsScene.tsx`
 
 ---
 
