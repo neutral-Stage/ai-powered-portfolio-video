@@ -1,5 +1,4 @@
-import { AbsoluteFill, useCurrentFrame, useVideoConfig, interpolate } from "remotion";
-import { Audio } from "@remotion/media";
+import { AbsoluteFill } from "remotion";
 import { TransitionSeries, linearTiming } from "@remotion/transitions";
 import { fade } from "@remotion/transitions/fade";
 import { slide } from "@remotion/transitions/slide";
@@ -14,71 +13,50 @@ import { ContactScene } from "./scenes/ContactScene";
 import { theme } from "./theme";
 
 export const ShowcaseVideo = () => {
-    const frame = useCurrentFrame();
-    const { durationInFrames } = useVideoConfig();
-
-    // Fade out audio in the last 2 seconds (60 frames)
-    const volume = interpolate(
-        frame,
-        [0, 30, durationInFrames - 60, durationInFrames],
-        [0, 0.5, 0.5, 0],
-        { extrapolateLeft: "clamp", extrapolateRight: "clamp" }
-    );
-
     return (
         <AbsoluteFill style={{ background: theme.colors.background }}>
-            <Audio
-                src="https://commondatastorage.googleapis.com/codeskulptor-assets/Epoq-Lepidoptera.ogg"
-                volume={volume}
-            />
             <TransitionSeries>
-                {/* Intro - 4s */}
-                <TransitionSeries.Sequence durationInFrames={120}>
+                <TransitionSeries.Sequence durationInFrames={180}>
                     <IntroScene />
                 </TransitionSeries.Sequence>
                 <TransitionSeries.Transition
-                    presentation={slide({ direction: "from-right" })}
-                    timing={linearTiming({ durationInFrames: 30 })}
+                    presentation={fade()}
+                    timing={linearTiming({ durationInFrames: 20 })}
                 />
 
-                {/* About - 5s */}
                 <TransitionSeries.Sequence durationInFrames={150}>
                     <AboutScene />
                 </TransitionSeries.Sequence>
                 <TransitionSeries.Transition
-                    presentation={wipe({ direction: "from-top" })}
-                    timing={linearTiming({ durationInFrames: 30 })}
+                    presentation={slide({ direction: "from-right" })}
+                    timing={linearTiming({ durationInFrames: 20 })}
                 />
 
-                {/* Skills - 6s */}
-                <TransitionSeries.Sequence durationInFrames={180}>
+                <TransitionSeries.Sequence durationInFrames={150}>
                     <SkillsScene />
                 </TransitionSeries.Sequence>
                 <TransitionSeries.Transition
-                    presentation={slide({ direction: "from-bottom" })}
-                    timing={linearTiming({ durationInFrames: 30 })}
+                    presentation={wipe({ direction: "from-bottom" })}
+                    timing={linearTiming({ durationInFrames: 20 })}
                 />
 
-                {/* Experience - 12s (360 frames) for full timeline scroll */}
-                <TransitionSeries.Sequence durationInFrames={360}>
+                <TransitionSeries.Sequence durationInFrames={180}>
                     <ExperienceScene />
                 </TransitionSeries.Sequence>
                 <TransitionSeries.Transition
-                    presentation={wipe({ direction: "from-right" })}
-                    timing={linearTiming({ durationInFrames: 30 })}
+                    presentation={slide({ direction: "from-left" })}
+                    timing={linearTiming({ durationInFrames: 20 })}
                 />
 
-                {/* Projects - 5s */}
-                <TransitionSeries.Sequence durationInFrames={150}>
+                <TransitionSeries.Sequence durationInFrames={210}>
                     <ProjectsScene />
                 </TransitionSeries.Sequence>
                 <TransitionSeries.Transition
-                    presentation={slide({ direction: "from-left" })}
-                    timing={linearTiming({ durationInFrames: 30 })}
+                    presentation={wipe({ direction: "from-top" })}
+                    timing={linearTiming({ durationInFrames: 20 })}
                 />
 
-                {/* Stats - 4s */}
-                <TransitionSeries.Sequence durationInFrames={120}>
+                <TransitionSeries.Sequence durationInFrames={150}>
                     <StatsScene />
                 </TransitionSeries.Sequence>
                 <TransitionSeries.Transition
@@ -86,8 +64,7 @@ export const ShowcaseVideo = () => {
                     timing={linearTiming({ durationInFrames: 20 })}
                 />
 
-                {/* Contact - 10s (300 frames) to hold the final view */}
-                <TransitionSeries.Sequence durationInFrames={300}>
+                <TransitionSeries.Sequence durationInFrames={210}>
                     <ContactScene />
                 </TransitionSeries.Sequence>
             </TransitionSeries>
