@@ -15,6 +15,6 @@ export const VIDEO_HEIGHT = 720;
 export const VIDEO_FPS = 30;
 
 export const SHOWCASE_COMP_NAME = "Showcase";
-export const SHOWCASE_DURATION_IN_FRAMES = 1350; // ~45 seconds
+export const SHOWCASE_DURATION_IN_FRAMES = 1110; // ~37 seconds
 export const SHOWCASE_WIDTH = 1920;
 export const SHOWCASE_HEIGHT = 1080;

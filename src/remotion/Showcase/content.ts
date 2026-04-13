@@ -11,6 +11,7 @@ export const profile = {
   email: "anirbanroy691@gmail.com",
   github: "github.com/neutral-Stage",
   linkedin: "linkedin.com/in/shuvo-anirban-roy",
+  education: "B.Sc. CSE · National University of Bangladesh · 2018",
 } as const;
 
 export const introTags = [

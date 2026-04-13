@@ -147,7 +147,7 @@ export const ContactScene: React.FC = () => {
               { label: "Location", value: profile.location, tone: "orange" as const },
               { label: "GitHub", value: profile.github, tone: "mint" as const },
               { label: "LinkedIn", value: profile.linkedin, tone: "gold" as const },
-              { label: "Education", value: "B.Sc. CSE · National University of Bangladesh · 2018", tone: "sky" as const },
+              { label: "Education", value: profile.education, tone: "sky" as const },
             ].map((item) => (
               <GlassCard key={item.label} tone={item.tone} style={{ padding: 22 }}>
                 <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
