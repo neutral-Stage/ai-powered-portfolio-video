@@ -57,7 +57,7 @@ The current 35-second video is accurate but reads like an animated résumé slid
 | 300% | conversion lift | Redesigned upgrade flow for Operation Nation |
 | 95+ | Lighthouse score | 40% faster loads across 15+ device categories |
 | 1,000+ | users on auth | JWT & OAuth flows shipped, zero rework needed |
-| 9+ yrs | shipping product | Startups, agencies, client teams — all remote |
+| 10+ yrs | shipping product | Startups, agencies, client teams — all remote |
 
 ### `focusAreas` — expanded tool lists
 - **SaaS Product UI:** React, Next.js, TypeScript, Tailwind, Panda CSS, Svelte, Astro
