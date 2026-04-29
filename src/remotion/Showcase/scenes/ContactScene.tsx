@@ -1,183 +1,142 @@
-import React from "react";
-import { Img, interpolate, staticFile, useCurrentFrame } from "remotion";
+import { useCurrentFrame } from "remotion";
 import { profile } from "../content";
-import { Eyebrow, GlassCard, ShowcaseShell, Tag } from "../shared";
+import {
+  BodyText,
+  BrandPanel,
+  ChapterFrame,
+  ContactLine,
+  Kicker,
+  PortraitFrame,
+  SectionTitle,
+  softRise,
+  toneColor,
+} from "../shared";
 import { theme } from "../theme";
 
-export const ContactScene: React.FC = () => {
+const contactItems = [
+  { label: "Email", value: profile.email, tone: "blue" as const },
+  { label: "Portfolio", value: profile.website, tone: "green" as const },
+  { label: "GitHub", value: profile.github, tone: "amber" as const },
+  { label: "LinkedIn", value: profile.linkedin, tone: "steel" as const },
+];
+
+export const ContactScene = () => {
   const frame = useCurrentFrame();
-  const pulse = 1 + Math.sin(frame / 18) * 0.02;
 
   return (
-    <ShowcaseShell frame={frame} justifyContent="center">
+    <ChapterFrame frame={frame} chapter="10" eyebrow="Contact" accent="coral">
       <div
         style={{
+          height: "100%",
           display: "grid",
-          gridTemplateColumns: "0.78fr 1.22fr",
-          gap: 30,
-          alignItems: "stretch",
+          gridTemplateColumns: "1fr 430px",
+          gap: 38,
+          alignItems: "center",
         }}
       >
-        <GlassCard tone="orange" style={{ padding: 30 }}>
-          <div style={{ display: "flex", flexDirection: "column", gap: 22, height: "100%" }}>
-            <div
-              style={{
-                borderRadius: 30,
-                overflow: "hidden",
-                border: `1px solid ${theme.colors.border}`,
-              }}
-            >
-              <Img
-                src={staticFile("shuvo.png")}
-                style={{
-                  width: "100%",
-                  height: 420,
-                  objectFit: "cover",
-                  objectPosition: "center top",
-                }}
-              />
-            </div>
-            <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-              <div
-                style={{
-                  fontFamily: theme.fonts.heading,
-                  fontSize: 42,
-                  lineHeight: 1,
-                }}
-              >
-                {profile.name}
-              </div>
-              <div
-                style={{
-                  color: theme.colors.tones.orange,
-                  fontFamily: theme.fonts.mono,
-                  fontSize: 17,
-                  letterSpacing: "0.06em",
-                  textTransform: "uppercase",
-                }}
-              >
-                {profile.role}
-              </div>
-            </div>
-            <div style={{ display: "flex", flexWrap: "wrap", gap: 12 }}>
-              {profile.availability.map((item, index) => (
-                <Tag
-                  key={item}
-                  label={item}
-                  tone={index === 0 ? "sky" : index === 1 ? "orange" : "mint"}
-                />
-              ))}
-            </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 18 }}>
+          <div style={softRise(frame, 8)}>
+            <Kicker tone="coral">Send the brief</Kicker>
           </div>
-        </GlassCard>
-
-        <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
-          <Eyebrow label="Let's work together" />
-
-          <div
-            style={{
-              opacity: interpolate(frame, [0, 20], [0, 1], {
-                extrapolateLeft: "clamp",
-                extrapolateRight: "clamp",
-              }),
-            }}
-          >
-            <h2
-              style={{
-                fontFamily: theme.fonts.heading,
-                fontSize: 80,
-                lineHeight: 0.94,
-                letterSpacing: "-0.06em",
-                margin: 0,
-              }}
-            >
-              Send the brief.
-              <br />
-              I'll reply with next steps.
-            </h2>
-            <p
-              style={{
-                margin: "18px 0 0 0",
-                color: theme.colors.text.secondary,
-                fontSize: 28,
-                lineHeight: 1.42,
-                maxWidth: 920,
-              }}
-            >
-              Strongest fit: React, Next.js, Node.js, Sanity, AI-assisted product work, and performance-focused delivery. Remote full-time, contract, or freelance.
-            </p>
+          <div style={softRise(frame, 24)}>
+            <SectionTitle size={74} maxWidth={940}>
+              Hire a senior full-stack developer who can move from idea to
+              shipped product.
+            </SectionTitle>
           </div>
-
-          <GlassCard tone="sky" style={{ padding: 28, transform: `scale(${pulse})` }}>
-            <div style={{ display: "flex", flexDirection: "column", gap: 18 }}>
-              <div
-                style={{
-                  fontFamily: theme.fonts.mono,
-                  fontSize: 16,
-                  letterSpacing: "0.06em",
-                  textTransform: "uppercase",
-                  color: theme.colors.tones.sky,
-                }}
-              >
-                Primary contact
-              </div>
-              <div
-                style={{
-                  fontFamily: theme.fonts.heading,
-                  fontSize: 62,
-                  lineHeight: 1,
-                }}
-              >
-                {profile.email}
-              </div>
-              <div style={{ fontSize: 26, color: theme.colors.text.secondary }}>
-                Portfolio: {profile.website}
-              </div>
-            </div>
-          </GlassCard>
+          <div style={softRise(frame, 54)}>
+            <BodyText size={23} maxWidth={870}>
+              Remote full-time, contract, or freelance. Best fit: SaaS teams,
+              agencies, AI products, CMS-backed growth sites, and founders who
+              need reliable delivery.
+            </BodyText>
+          </div>
 
           <div
             style={{
               display: "grid",
-              gridTemplateColumns: "repeat(4, minmax(0, 1fr))",
-              gap: 18,
+              gridTemplateColumns: "1fr 1fr",
+              gap: 12,
+              marginTop: 2,
             }}
           >
-            {[
-              { label: "Location", value: profile.location, tone: "orange" as const },
-              { label: "GitHub", value: profile.github, tone: "mint" as const },
-              { label: "LinkedIn", value: profile.linkedin, tone: "gold" as const },
-              { label: "Education", value: profile.education, tone: "sky" as const },
-            ].map((item) => (
-              <GlassCard key={item.label} tone={item.tone} style={{ padding: 22 }}>
-                <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-                  <div
-                    style={{
-                      fontFamily: theme.fonts.mono,
-                      fontSize: 15,
-                      letterSpacing: "0.06em",
-                      textTransform: "uppercase",
-                      color: theme.colors.tones[item.tone],
-                    }}
-                  >
-                    {item.label}
-                  </div>
-                  <div
-                    style={{
-                      fontSize: item.label === "Education" ? 18 : 24,
-                      lineHeight: 1.35,
-                      color: theme.colors.text.primary,
-                      fontWeight: 700,
-                    }}
-                  >
-                    {item.value}
-                  </div>
-                </div>
-              </GlassCard>
+            {contactItems.map((item, index) => (
+              <ContactLine
+                key={item.label}
+                label={item.label}
+                value={item.value}
+                tone={item.tone}
+                frame={frame}
+                delay={76 + index * 12}
+              />
             ))}
           </div>
+
+          <BrandPanel
+            tone="coral"
+            style={{ padding: 20, ...softRise(frame, 116) }}
+          >
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "1fr 96px",
+                gap: 20,
+                alignItems: "center",
+              }}
+            >
+              <div>
+                <div
+                  style={{
+                    fontFamily: theme.fonts.mono,
+                    color: toneColor("coral"),
+                    fontSize: 15,
+                    textTransform: "uppercase",
+                  }}
+                >
+                  Next step
+                </div>
+                <div
+                  style={{
+                    marginTop: 10,
+                    color: theme.colors.text.primary,
+                    fontFamily: theme.fonts.display,
+                    fontSize: 31,
+                    lineHeight: 1,
+                    fontWeight: 800,
+                    letterSpacing: 0,
+                  }}
+                >
+                  Email the project brief. I will map the fastest path to
+                  launch.
+                </div>
+              </div>
+              <div
+                style={{
+                  width: 96,
+                  height: 96,
+                  display: "grid",
+                  placeItems: "center",
+                  border: `1px solid ${toneColor("coral")}66`,
+                  color: toneColor("coral"),
+                  fontFamily: theme.fonts.display,
+                  fontSize: 28,
+                  fontWeight: 800,
+                }}
+              >
+                GO
+              </div>
+            </div>
+          </BrandPanel>
         </div>
+
+        <PortraitFrame
+          frame={frame}
+          delay={42}
+          tone="coral"
+          imageMinHeight={510}
+          style={{ minHeight: 550 }}
+        />
       </div>
-    </ShowcaseShell>
+    </ChapterFrame>
   );
 };

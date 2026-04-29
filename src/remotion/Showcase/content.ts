@@ -11,7 +11,7 @@ export const profile = {
   email: "anirbanroy691@gmail.com",
   github: "github.com/neutral-Stage",
   linkedin: "linkedin.com/in/shuvo-anirban-roy",
-  education: "B.Sc. CSE · National University of Bangladesh · 2018",
+  education: "B.Sc. CSE | National University of Bangladesh | 2018",
 } as const;
 
 export const introTags = [
@@ -29,25 +29,25 @@ export const proofPoints = [
     value: "300%",
     label: "conversion lift",
     detail: "Redesigned upgrade flow for Operation Nation",
-    tone: "orange",
+    tone: "amber",
   },
   {
     value: "95+",
     label: "Lighthouse score",
     detail: "40% faster loads across 15+ device categories",
-    tone: "sky",
+    tone: "blue",
   },
   {
     value: "1,000+",
     label: "users on auth",
     detail: "JWT & OAuth flows shipped, zero rework needed",
-    tone: "mint",
+    tone: "green",
   },
   {
     value: "10+ yrs",
     label: "shipping product",
-    detail: "Startups, agencies, client teams — all remote",
-    tone: "gold",
+    detail: "Startups, agencies, client teams - all remote",
+    tone: "coral",
   },
 ] as const;
 
@@ -56,29 +56,45 @@ export const focusAreas = [
     title: "SaaS Product UI",
     blurb:
       "Polished interfaces, upgrade flows, design systems, and frontends that explain the product clearly.",
-    tools: ["React", "Next.js", "TypeScript", "Tailwind", "Panda CSS", "Svelte", "Astro"],
-    tone: "sky",
+    tools: [
+      "React",
+      "Next.js",
+      "TypeScript",
+      "Tailwind",
+      "Panda CSS",
+      "Svelte",
+      "Astro",
+    ],
+    tone: "blue",
   },
   {
     title: "CMS-Backed Websites",
     blurb:
       "Marketing sites and editorial systems that stay maintainable for content teams and still perform well.",
     tools: ["Sanity", "Payload", "Astro", "SEO", "Schema Markup"],
-    tone: "orange",
+    tone: "amber",
   },
   {
     title: "AI Product Workflows",
     blurb:
       "Multi-agent flows, prompt tuning, editor automation, and MCP-style tooling for real product usage.",
     tools: ["OpenAI", "Azure", "Gemini", "MCP", "Prompt Design"],
-    tone: "mint",
+    tone: "green",
   },
   {
     title: "Backend and Delivery",
     blurb:
       "APIs, auth, realtime features, CI, and performance tuning that keep launches reliable under pressure.",
-    tools: ["Node.js", "Supabase", "PostgreSQL", "WebSockets", "FastAPI", "Redis", "GitHub Actions"],
-    tone: "rose",
+    tools: [
+      "Node.js",
+      "Supabase",
+      "PostgreSQL",
+      "WebSockets",
+      "FastAPI",
+      "Redis",
+      "GitHub Actions",
+    ],
+    tone: "coral",
   },
 ] as const;
 
@@ -93,7 +109,7 @@ export const recentRoles = [
       "Multi-agent workflows with OpenAI, Azure, and Gemini",
       "Canva-inspired editor turning prompts into production-ready decks",
     ],
-    tone: "sky",
+    tone: "blue",
   },
   {
     company: "Operation Nation",
@@ -105,7 +121,7 @@ export const recentRoles = [
       "300% conversion lift on the AI presentation upgrade flow",
       "Released a Sanity SEO plugin and no-code website builder",
     ],
-    tone: "orange",
+    tone: "amber",
   },
   {
     company: "BuiltForYou Digital",
@@ -117,7 +133,7 @@ export const recentRoles = [
       "40% faster page loads and 95+ Lighthouse scores across 15+ device categories",
       "Auth systems for 1,000+ users with MakerKit and Supabase",
     ],
-    tone: "mint",
+    tone: "green",
   },
   {
     company: "Matthew Luke Studio",
@@ -129,7 +145,7 @@ export const recentRoles = [
       "Delivered 12 custom web apps using React, Node.js, Express.js, and MongoDB",
       "Built 5 Shopify storefronts with custom React components and Storefront API integration",
     ],
-    tone: "rose",
+    tone: "coral",
   },
 ] as const;
 
@@ -140,7 +156,7 @@ export const selectedProjects = [
     summary:
       "Word-level synced subtitles, animated presets, and multi-provider transcription workflows for Remotion projects.",
     stack: ["Remotion", "TypeScript", "Captions"],
-    tone: "sky",
+    tone: "blue",
   },
   {
     title: "TYPO SIEGE",
@@ -148,7 +164,7 @@ export const selectedProjects = [
     summary:
       "Canvas + TypeScript typing game with wave logic, power-ups, and zero-dependency sound. Shows range beyond product work.",
     stack: ["Canvas API", "TypeScript", "Sound Design"],
-    tone: "gold",
+    tone: "coral",
   },
   {
     title: "Gmail MCP Server",
@@ -156,7 +172,7 @@ export const selectedProjects = [
     summary:
       "Privacy-first Gmail MCP server for search, read, send, labels, and batch email actions in local agent workflows.",
     stack: ["MCP", "OAuth", "Node.js"],
-    tone: "orange",
+    tone: "amber",
   },
   {
     title: "Church Finance",
@@ -164,15 +180,15 @@ export const selectedProjects = [
     summary:
       "Funds, transactions, contributions, reporting, and role-based access in a Next.js and Supabase product.",
     stack: ["Next.js", "Supabase", "PostgreSQL"],
-    tone: "mint",
+    tone: "green",
   },
   {
     title: "AI-Powered Portfolio Video",
-    category: "Meta · this video",
+    category: "Meta | this video",
     summary:
-      "You're watching it. Programmatic video built with React and Remotion — AI-assisted narration, animated scenes, shipped as open source.",
+      "You're watching it. Programmatic video built with React and Remotion - AI-assisted structure, animated scenes, shipped as open source.",
     stack: ["Remotion", "React", "AI"],
-    tone: "sky",
+    tone: "blue",
   },
   {
     title: "Sanity Plugin Schema Markup",
@@ -180,7 +196,7 @@ export const selectedProjects = [
     summary:
       "Structured data management directly inside the CMS workflow so teams can ship schema without hardcoding every case.",
     stack: ["Sanity", "SEO", "TypeScript"],
-    tone: "rose",
+    tone: "steel",
   },
 ] as const;
 
@@ -188,21 +204,21 @@ export const hiringReasons = [
   {
     title: "Ships without hand-holding",
     body: "Scoped decisions, async updates, no chasing.",
-    tone: "sky",
+    tone: "blue",
   },
   {
     title: "Product thinking, not just code",
     body: "I focus on conversion, clarity, and delivery velocity.",
-    tone: "orange",
+    tone: "amber",
   },
   {
     title: "Full-stack range",
     body: "SaaS features, CMS builds, AI workflows, perf cleanup.",
-    tone: "mint",
+    tone: "green",
   },
   {
     title: "Available now",
-    body: "Remote full-time, contract, or freelance — send the brief.",
-    tone: "gold",
+    body: "Remote full-time, contract, or freelance - send the brief.",
+    tone: "coral",
   },
 ] as const;

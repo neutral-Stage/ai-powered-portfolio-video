@@ -1,113 +1,154 @@
-import React from "react";
-import { interpolate, useCurrentFrame } from "remotion";
+import { useCurrentFrame } from "remotion";
 import { selectedProjects } from "../content";
-import { Eyebrow, GlassCard, SectionHeading, ShowcaseShell, Tag } from "../shared";
-import { theme } from "../theme";
+import {
+  BodyText,
+  ChapterFrame,
+  Kicker,
+  ProjectTile,
+  SectionTitle,
+  softRise,
+} from "../shared";
 
-export const ProjectsScene: React.FC = () => {
+const byTitle = (title: string) =>
+  selectedProjects.find((project) => project.title === title)!;
+
+const proofProjects = [
+  byTitle("Remotion Captioneer"),
+  byTitle("Gmail MCP Server"),
+  byTitle("Church Finance"),
+] as const;
+
+const depthProjects = [
+  byTitle("TYPO SIEGE"),
+  byTitle("AI-Powered Portfolio Video"),
+  byTitle("Sanity Plugin Schema Markup"),
+] as const;
+
+export const ProjectsProofScene = () => {
   const frame = useCurrentFrame();
 
   return (
-    <ShowcaseShell frame={frame}>
-      <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
-        <Eyebrow label="Selected builds" />
-        <SectionHeading
-          title="Public"
-          accent="proof"
-          body="These builds show product thinking, code range, and execution quality across video tooling, AI workflows, dashboards, and CMS SEO."
-        />
-      </div>
-
+    <ChapterFrame
+      frame={frame}
+      chapter="07"
+      eyebrow="Project proof"
+      accent="blue"
+    >
       <div
         style={{
+          height: "100%",
           display: "grid",
-          gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
-          gap: 24,
+          gridTemplateRows: "auto 1fr",
+          gap: 38,
         }}
       >
-        {selectedProjects.map((project, index) => {
-          const cardIn = interpolate(frame, [14 + index * 5, 34 + index * 5], [0, 1], {
-            extrapolateLeft: "clamp",
-            extrapolateRight: "clamp",
-          });
-
-          const isMetaVideo = project.title === "AI-Powered Portfolio Video";
-
-          return (
-            <div
-              key={project.title}
-              style={{
-                opacity: cardIn,
-                transform: `translateY(${interpolate(cardIn, [0, 1], [42, 0])}px)`,
-              }}
-            >
-              <GlassCard tone={project.tone} style={{ minHeight: 260 }}>
-                <div style={{ display: "flex", flexDirection: "column", gap: 18 }}>
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      alignItems: "center",
-                      gap: 16,
-                    }}
-                  >
-                    <div
-                      style={{
-                        fontFamily: theme.fonts.mono,
-                        fontSize: 15,
-                        letterSpacing: "0.06em",
-                        textTransform: "uppercase",
-                        color: theme.colors.tones[project.tone],
-                      }}
-                    >
-                      {project.category}
-                    </div>
-                    {isMetaVideo ? (
-                      <Tag label="★ This video" tone="sky" />
-                    ) : (
-                      <div
-                        style={{
-                          width: 14,
-                          height: 14,
-                          borderRadius: 999,
-                          background: theme.colors.tones[project.tone],
-                        }}
-                      />
-                    )}
-                  </div>
-
-                  <div
-                    style={{
-                      fontFamily: theme.fonts.heading,
-                      fontSize: 38,
-                      lineHeight: 1,
-                    }}
-                  >
-                    {project.title}
-                  </div>
-
-                  <p
-                    style={{
-                      margin: 0,
-                      fontSize: 20,
-                      lineHeight: 1.45,
-                      color: theme.colors.text.secondary,
-                    }}
-                  >
-                    {project.summary}
-                  </p>
-
-                  <div style={{ display: "flex", flexWrap: "wrap", gap: 10 }}>
-                    {project.stack.map((tool) => (
-                      <Tag key={tool} label={tool} tone={project.tone} />
-                    ))}
-                  </div>
-                </div>
-              </GlassCard>
+        <div
+          style={{ display: "grid", gridTemplateColumns: "1fr 560px", gap: 48 }}
+        >
+          <div style={{ display: "flex", flexDirection: "column", gap: 22 }}>
+            <div style={softRise(frame, 8)}>
+              <Kicker tone="blue">Proof beyond job titles</Kicker>
             </div>
-          );
-        })}
+            <div style={softRise(frame, 24)}>
+              <SectionTitle size={82} maxWidth={1050}>
+                Technical judgment shown through shipped systems.
+              </SectionTitle>
+            </div>
+          </div>
+          <div style={{ alignSelf: "end", ...softRise(frame, 54) }}>
+            <BodyText size={25} maxWidth={560}>
+              Open-source tooling, agent workflows, dashboards, and
+              product-grade implementations show how the stack translates into
+              outcomes.
+            </BodyText>
+          </div>
+        </div>
+
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(3, 1fr)",
+            gap: 22,
+            alignItems: "center",
+          }}
+        >
+          {proofProjects.map((project, index) => (
+            <ProjectTile
+              key={project.title}
+              {...project}
+              frame={frame}
+              delay={78 + index * 18}
+            />
+          ))}
+        </div>
       </div>
-    </ShowcaseShell>
+    </ChapterFrame>
+  );
+};
+
+export const ProjectsDepthScene = () => {
+  const frame = useCurrentFrame();
+
+  return (
+    <ChapterFrame
+      frame={frame}
+      chapter="08"
+      eyebrow="Creative systems"
+      accent="amber"
+    >
+      <div
+        style={{
+          height: "100%",
+          display: "grid",
+          gridTemplateRows: "auto 1fr",
+          gap: 38,
+        }}
+      >
+        <div
+          style={{ display: "grid", gridTemplateColumns: "1fr 600px", gap: 48 }}
+        >
+          <div style={{ display: "flex", flexDirection: "column", gap: 22 }}>
+            <div style={softRise(frame, 8)}>
+              <Kicker tone="amber">Range with taste</Kicker>
+            </div>
+            <div style={softRise(frame, 24)}>
+              <SectionTitle size={82} maxWidth={1060}>
+                Product thinking, automation, and craft in one portfolio.
+              </SectionTitle>
+            </div>
+          </div>
+          <div style={{ alignSelf: "end", ...softRise(frame, 54) }}>
+            <BodyText size={25} maxWidth={600}>
+              Senior full-stack value includes experimentation. These projects
+              show UI motion, CMS tooling, gameplay logic, and AI-assisted video
+              delivery.
+            </BodyText>
+          </div>
+        </div>
+
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(3, 1fr)",
+            gap: 22,
+            alignItems: "center",
+          }}
+        >
+          {depthProjects.map((project, index) => (
+            <ProjectTile
+              key={project.title}
+              {...project}
+              badge={
+                project.title === "AI-Powered Portfolio Video"
+                  ? "This film"
+                  : undefined
+              }
+              frame={frame}
+              delay={78 + index * 18}
+            />
+          ))}
+        </div>
+      </div>
+    </ChapterFrame>
   );
 };

@@ -1,48 +1,54 @@
-import { loadFont as loadHeadingFont } from "@remotion/google-fonts/SpaceGrotesk";
-import { loadFont as loadBodyFont } from "@remotion/google-fonts/Manrope";
-import { loadFont as loadMonoFont } from "@remotion/google-fonts/MartianMono";
+import { loadFont as loadDisplayFont } from "@remotion/google-fonts/Archivo";
+import { loadFont as loadBodyFont } from "@remotion/google-fonts/InstrumentSans";
+import { loadFont as loadMonoFont } from "@remotion/google-fonts/IBMPlexMono";
 
-const { fontFamily: heading } = loadHeadingFont("normal", {
-  weights: ["500", "700"],
+const { fontFamily: display } = loadDisplayFont("normal", {
+  weights: ["600", "700", "800"],
   subsets: ["latin"],
 });
 
 const { fontFamily: body } = loadBodyFont("normal", {
-  weights: ["400", "500", "700"],
+  weights: ["400", "500", "600", "700"],
   subsets: ["latin"],
 });
 
 const { fontFamily: mono } = loadMonoFont("normal", {
-  weights: ["500"],
+  weights: ["500", "600"],
   subsets: ["latin"],
 });
 
-export type AccentTone = "sky" | "orange" | "mint" | "rose" | "gold";
+export type AccentTone = "blue" | "green" | "amber" | "coral" | "steel";
 
 export const theme = {
   colors: {
-    background: "#07111f",
-    backgroundAlt: "#0d1727",
-    panel: "rgba(10, 20, 36, 0.72)",
-    panelStrong: "rgba(10, 20, 36, 0.9)",
-    border: "rgba(148, 163, 184, 0.18)",
-    shadow: "rgba(2, 6, 23, 0.45)",
+    background: "#090b0e",
+    backgroundAlt: "#101318",
+    surface: "#12161b",
+    surfaceElevated: "#171c22",
+    surfaceWash: "rgba(246, 240, 230, 0.055)",
+    line: "rgba(246, 240, 230, 0.14)",
+    lineStrong: "rgba(246, 240, 230, 0.24)",
+    shadow: "rgba(0, 0, 0, 0.42)",
     text: {
-      primary: "#f8fafc",
-      secondary: "#9fb0c8",
-      muted: "#64748b",
+      primary: "#f4efe7",
+      secondary: "#b7bec7",
+      muted: "#78828e",
     },
     tones: {
-      sky: "#38bdf8",
-      orange: "#fb923c",
-      mint: "#34d399",
-      rose: "#fb7185",
-      gold: "#fbbf24",
+      blue: "#62a8ff",
+      green: "#39d69f",
+      amber: "#f4bd5f",
+      coral: "#ff766b",
+      steel: "#9cadbf",
     },
   },
   fonts: {
-    heading,
+    display,
     body,
     mono,
+  },
+  layout: {
+    x: 96,
+    y: 72,
   },
 } as const;

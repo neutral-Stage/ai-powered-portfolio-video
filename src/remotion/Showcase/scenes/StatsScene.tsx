@@ -1,91 +1,142 @@
-import React from "react";
-import { interpolate, useCurrentFrame } from "remotion";
-import { hiringReasons, profile } from "../content";
-import { Eyebrow, GlassCard, SectionHeading, ShowcaseShell, Tag } from "../shared";
+import { useCurrentFrame } from "remotion";
+import { hiringReasons } from "../content";
+import {
+  BodyText,
+  BrandPanel,
+  ChapterFrame,
+  Kicker,
+  SectionTitle,
+  softRise,
+  toneColor,
+} from "../shared";
 import { theme } from "../theme";
 
-export const StatsScene: React.FC = () => {
+export const StatsScene = () => {
   const frame = useCurrentFrame();
 
   return (
-    <ShowcaseShell frame={frame} justifyContent="center">
+    <ChapterFrame
+      frame={frame}
+      chapter="09"
+      eyebrow="Working style"
+      accent="green"
+    >
       <div
         style={{
+          height: "100%",
           display: "grid",
           gridTemplateColumns: "0.9fr 1.1fr",
-          gap: 28,
-          alignItems: "stretch",
+          gap: 42,
+          alignItems: "center",
         }}
       >
-        <GlassCard tone="sky" style={{ padding: 36 }}>
-          <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
-            <Eyebrow label="Working style" />
-            <SectionHeading
-              title="Easy to"
-              accent="plug in"
-              body="Fast reply. Straightforward communication. Comfortable with remote collaboration and async workflows."
-            />
-            <div style={{ display: "flex", flexWrap: "wrap", gap: 12 }}>
-              {profile.availability.map((item, index) => (
-                <Tag
-                  key={item}
-                  label={item}
-                  tone={index === 0 ? "sky" : index === 1 ? "orange" : "mint"}
-                />
+        <div style={{ display: "flex", flexDirection: "column", gap: 28 }}>
+          <div style={softRise(frame, 8)}>
+            <Kicker tone="green">How collaboration feels</Kicker>
+          </div>
+          <div style={softRise(frame, 24)}>
+            <SectionTitle size={84} maxWidth={760}>
+              Senior delivery without communication drag.
+            </SectionTitle>
+          </div>
+          <div style={softRise(frame, 52)}>
+            <BodyText size={28} maxWidth={720}>
+              Clear scope, visible progress, focused execution, and enough
+              product judgment to protect the outcome when requirements move.
+            </BodyText>
+          </div>
+
+          <BrandPanel
+            tone="green"
+            style={{ padding: 30, ...softRise(frame, 78) }}
+          >
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "repeat(4, 1fr)",
+                gap: 12,
+              }}
+            >
+              {["Brief", "Prototype", "Ship", "Measure"].map((step, index) => (
+                <div
+                  key={step}
+                  style={{ display: "flex", flexDirection: "column", gap: 12 }}
+                >
+                  <div
+                    style={{
+                      height: 2,
+                      background:
+                        index === 0
+                          ? toneColor("blue")
+                          : index === 1
+                            ? toneColor("green")
+                            : index === 2
+                              ? toneColor("amber")
+                              : toneColor("coral"),
+                    }}
+                  />
+                  <div
+                    style={{
+                      color: theme.colors.text.primary,
+                      fontSize: 22,
+                      fontWeight: 800,
+                    }}
+                  >
+                    {step}
+                  </div>
+                </div>
               ))}
             </div>
-          </div>
-        </GlassCard>
+          </BrandPanel>
+        </div>
 
         <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
-            gap: 20,
-          }}
+          style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20 }}
         >
-          {hiringReasons.map((reason, index) => {
-            const cardIn = interpolate(frame, [18 + index * 5, 34 + index * 5], [0, 1], {
-              extrapolateLeft: "clamp",
-              extrapolateRight: "clamp",
-            });
-
-            return (
+          {hiringReasons.map((reason, index) => (
+            <BrandPanel
+              key={reason.title}
+              tone={reason.tone}
+              style={{
+                padding: 30,
+                minHeight: 250,
+                ...softRise(frame, 72 + index * 14),
+              }}
+            >
               <div
-                key={reason.title}
-                style={{
-                  opacity: cardIn,
-                  transform: `translateY(${interpolate(cardIn, [0, 1], [26, 0])}px)`,
-                }}
+                style={{ display: "flex", flexDirection: "column", gap: 16 }}
               >
-                <GlassCard tone={reason.tone} style={{ minHeight: 224 }}>
-                  <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-                    <div
-                      style={{
-                        fontFamily: theme.fonts.heading,
-                        fontSize: 34,
-                        lineHeight: 1.02,
-                      }}
-                    >
-                      {reason.title}
-                    </div>
-                    <p
-                      style={{
-                        margin: 0,
-                        fontSize: 22,
-                        lineHeight: 1.45,
-                        color: theme.colors.text.secondary,
-                      }}
-                    >
-                      {reason.body}
-                    </p>
-                  </div>
-                </GlassCard>
+                <div
+                  style={{
+                    fontFamily: theme.fonts.mono,
+                    color: toneColor(reason.tone),
+                    fontSize: 16,
+                    textTransform: "uppercase",
+                  }}
+                >
+                  0{index + 1}
+                </div>
+                <h3
+                  style={{
+                    margin: 0,
+                    color: theme.colors.text.primary,
+                    fontFamily: theme.fonts.display,
+                    fontSize: 40,
+                    lineHeight: 1,
+                    fontWeight: 800,
+                    letterSpacing: 0,
+                  }}
+                >
+                  {reason.title}
+                </h3>
+                <BodyText size={22} maxWidth={460}>
+                  {reason.body}
+                </BodyText>
               </div>
-            );
-          })}
+            </BrandPanel>
+          ))}
         </div>
       </div>
-    </ShowcaseShell>
+    </ChapterFrame>
   );
 };

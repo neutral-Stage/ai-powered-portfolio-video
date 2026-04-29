@@ -1,130 +1,170 @@
-import React from "react";
-import { interpolate, useCurrentFrame } from "remotion";
+import { useCurrentFrame } from "remotion";
 import { recentRoles } from "../content";
-import { BulletRow, Eyebrow, GlassCard, SectionHeading, ShowcaseShell } from "../shared";
+import {
+  BodyText,
+  BrandPanel,
+  ChapterFrame,
+  Kicker,
+  SectionTitle,
+  TimelineRole,
+  softRise,
+  toneColor,
+} from "../shared";
 import { theme } from "../theme";
 
-export const ExperienceScene: React.FC = () => {
+const [presentia, operationNation, builtForYou, matthewLuke] = recentRoles;
+
+export const ExperienceCurrentScene = () => {
   const frame = useCurrentFrame();
 
   return (
-    <ShowcaseShell frame={frame}>
-      <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
-        <Eyebrow label="Career snapshot" />
-        <SectionHeading
-          title="Recent"
-          accent="roles"
-          body="The strongest hiring signal is in the current stack: AI product work, conversion-focused UX, performance tuning, and modern full-stack delivery."
-        />
-      </div>
-
+    <ChapterFrame
+      frame={frame}
+      chapter="05"
+      eyebrow="Recent roles"
+      accent="green"
+    >
       <div
         style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
-          gap: 24,
+          height: "100%",
+          display: "flex",
+          flexDirection: "column",
+          gap: 36,
         }}
       >
-        {recentRoles.map((role, index) => {
-          const cardIn = interpolate(frame, [12 + index * 8, 28 + index * 8], [0, 1], {
-            extrapolateLeft: "clamp",
-            extrapolateRight: "clamp",
-          });
-
-          return (
-            <div
-              key={role.company}
-              style={{
-                opacity: cardIn,
-                transform: `translateY(${interpolate(cardIn, [0, 1], [38, 0])}px)`,
-              }}
-            >
-              <GlassCard tone={role.tone} style={{ minHeight: 380 }}>
-                <div style={{ display: "flex", flexDirection: "column", gap: 18 }}>
-                  <div
-                    style={{
-                      fontFamily: theme.fonts.mono,
-                      fontSize: 15,
-                      letterSpacing: "0.06em",
-                      textTransform: "uppercase",
-                      color: theme.colors.tones[role.tone],
-                    }}
-                  >
-                    {role.meta}
-                  </div>
-                  <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-                    <div
-                      style={{
-                        fontFamily: theme.fonts.heading,
-                        fontSize: 42,
-                        lineHeight: 1,
-                        margin: 0,
-                      }}
-                    >
-                      {role.role}
-                    </div>
-                    <div
-                      style={{
-                        fontSize: 28,
-                        fontWeight: 800,
-                        color: theme.colors.tones[role.tone],
-                      }}
-                    >
-                      {role.company}
-                    </div>
-                  </div>
-                  <p
-                    style={{
-                      margin: 0,
-                      fontSize: 22,
-                      lineHeight: 1.45,
-                      color: theme.colors.text.secondary,
-                    }}
-                  >
-                    {role.summary}
-                  </p>
-                  <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-                    {role.wins.map((win) => (
-                      <BulletRow key={win} text={win} tone={role.tone} />
-                    ))}
-                  </div>
-                </div>
-              </GlassCard>
-            </div>
-          );
-        })}
-      </div>
-
-      <GlassCard tone="gold" style={{ padding: 22 }}>
         <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            gap: 24,
-          }}
+          style={{ display: "grid", gridTemplateColumns: "1fr 560px", gap: 48 }}
+        >
+          <div style={{ display: "flex", flexDirection: "column", gap: 22 }}>
+            <div style={softRise(frame, 8)}>
+              <Kicker tone="green">Current product context</Kicker>
+            </div>
+            <div style={softRise(frame, 24)}>
+              <SectionTitle size={82} maxWidth={1060}>
+                Recent work at the intersection of AI products, SaaS, and growth
+                sites.
+              </SectionTitle>
+            </div>
+          </div>
+          <div style={{ alignSelf: "end", ...softRise(frame, 54) }}>
+            <BodyText size={25} maxWidth={560}>
+              These roles show senior-level ownership across product thinking,
+              implementation, integration, and delivery cadence.
+            </BodyText>
+          </div>
+        </div>
+
+        <div
+          style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 22 }}
+        >
+          <TimelineRole {...presentia} index="01" frame={frame} delay={76} />
+          <TimelineRole
+            {...operationNation}
+            index="02"
+            frame={frame}
+            delay={94}
+          />
+        </div>
+      </div>
+    </ChapterFrame>
+  );
+};
+
+export const ExperienceDepthScene = () => {
+  const frame = useCurrentFrame();
+
+  return (
+    <ChapterFrame
+      frame={frame}
+      chapter="06"
+      eyebrow="Delivery depth"
+      accent="coral"
+    >
+      <div
+        style={{
+          height: "100%",
+          display: "grid",
+          gridTemplateRows: "auto auto auto",
+          gap: 20,
+        }}
+      >
+        <div
+          style={{ display: "grid", gridTemplateColumns: "1fr 620px", gap: 48 }}
+        >
+          <div style={{ display: "flex", flexDirection: "column", gap: 22 }}>
+            <div style={softRise(frame, 8)}>
+              <Kicker tone="coral">Production foundation</Kicker>
+            </div>
+            <div style={softRise(frame, 24)}>
+              <SectionTitle size={70} maxWidth={1060}>
+                Agency, ecommerce, client builds, and performance-critical
+                products.
+              </SectionTitle>
+            </div>
+          </div>
+          <div style={{ alignSelf: "end", ...softRise(frame, 52) }}>
+            <BodyText size={23} maxWidth={610}>
+              The senior signal: shipping across messy client constraints,
+              modern stacks, legacy expectations, and real deployment timelines.
+            </BodyText>
+          </div>
+        </div>
+
+        <div
+          style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 22 }}
+        >
+          <TimelineRole {...builtForYou} index="03" frame={frame} delay={72} />
+          <TimelineRole {...matthewLuke} index="04" frame={frame} delay={90} />
+        </div>
+
+        <BrandPanel
+          tone="steel"
+          style={{ padding: 18, ...softRise(frame, 118) }}
         >
           <div
             style={{
-              fontFamily: theme.fonts.heading,
-              fontSize: 32,
-              lineHeight: 1,
+              display: "grid",
+              gridTemplateColumns: "230px 1fr 180px",
+              alignItems: "center",
+              gap: 28,
             }}
           >
-            Earlier experience
+            <div
+              style={{
+                color: toneColor("steel"),
+                fontFamily: theme.fonts.mono,
+                fontSize: 15,
+                textTransform: "uppercase",
+              }}
+            >
+              Earlier foundation
+            </div>
+            <div
+              style={{
+                color: theme.colors.text.secondary,
+                fontSize: 18,
+                lineHeight: 1.3,
+              }}
+            >
+              WordPress, Shopify, React, Node.js, Express, MongoDB, CMS
+              migrations, ecommerce storefronts, and long-running client
+              delivery.
+            </div>
+            <div
+              style={{
+                color: theme.colors.text.primary,
+                fontFamily: theme.fonts.display,
+                fontSize: 34,
+                lineHeight: 1,
+                fontWeight: 800,
+                textAlign: "right",
+              }}
+            >
+              10+ years
+            </div>
           </div>
-          <div
-            style={{
-              color: theme.colors.text.secondary,
-              fontSize: 22,
-              lineHeight: 1.4,
-              textAlign: "right",
-            }}
-          >
-            123workforce (2019–2020), Boi Kotha (2018–2019), and Code Builder IT (2016–2018) built the foundation across ecommerce, frontend systems, and full-stack delivery.
-          </div>
-        </div>
-      </GlassCard>
-    </ShowcaseShell>
+        </BrandPanel>
+      </div>
+    </ChapterFrame>
   );
 };

@@ -1,88 +1,127 @@
-import React from "react";
-import { interpolate, useCurrentFrame } from "remotion";
+import { useCurrentFrame } from "remotion";
 import { focusAreas } from "../content";
-import { Eyebrow, GlassCard, SectionHeading, ShowcaseShell, Tag } from "../shared";
+import {
+  BodyText,
+  BrandPanel,
+  ChapterFrame,
+  Kicker,
+  SectionTitle,
+  Tag,
+  softRise,
+  toneColor,
+} from "../shared";
 import { theme } from "../theme";
 
-export const SkillsScene: React.FC = () => {
+export const SkillsScene = () => {
   const frame = useCurrentFrame();
 
   return (
-    <ShowcaseShell frame={frame}>
-      <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
-        <Eyebrow label="Core strengths" />
-        <SectionHeading
-          title="What I"
-          accent="ship well"
-          body="Teams bring me in when they need product UI, CMS delivery, AI workflows, or backend work shipped cleanly and without hand-holding."
-        />
-      </div>
-
+    <ChapterFrame
+      frame={frame}
+      chapter="04"
+      eyebrow="Capabilities"
+      accent="blue"
+    >
       <div
         style={{
+          height: "100%",
           display: "grid",
-          gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
-          gap: 24,
+          gridTemplateRows: "auto 1fr",
+          gap: 36,
         }}
       >
-        {focusAreas.map((area, index) => {
-          const cardIn = interpolate(frame, [12 + index * 6, 28 + index * 6], [0, 1], {
-            extrapolateLeft: "clamp",
-            extrapolateRight: "clamp",
-          });
+        <div
+          style={{ display: "grid", gridTemplateColumns: "1fr 620px", gap: 48 }}
+        >
+          <div style={{ display: "flex", flexDirection: "column", gap: 22 }}>
+            <div style={softRise(frame, 8)}>
+              <Kicker tone="blue">What gets shipped</Kicker>
+            </div>
+            <div style={softRise(frame, 24)}>
+              <SectionTitle size={82} maxWidth={1020}>
+                Product-grade range from interface to infrastructure.
+              </SectionTitle>
+            </div>
+          </div>
+          <div style={{ alignSelf: "end", ...softRise(frame, 54) }}>
+            <BodyText size={26} maxWidth={610}>
+              The value is not one isolated skill. It is connecting product
+              intent, design clarity, backend constraints, and launch pressure
+              into one delivery loop.
+            </BodyText>
+          </div>
+        </div>
 
-          return (
-            <div
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "1fr 1fr",
+            gap: 20,
+            alignItems: "stretch",
+          }}
+        >
+          {focusAreas.map((area, index) => (
+            <BrandPanel
               key={area.title}
+              tone={area.tone}
               style={{
-                opacity: cardIn,
-                transform: `translateY(${interpolate(cardIn, [0, 1], [34, 0])}px)`,
+                padding: 30,
+                minHeight: 260,
+                ...softRise(frame, 74 + index * 14),
               }}
             >
-              <GlassCard tone={area.tone} style={{ minHeight: 280 }}>
-                <div style={{ display: "flex", flexDirection: "column", gap: 18 }}>
-                  <div
+              <div
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "72px 1fr",
+                  gap: 22,
+                }}
+              >
+                <div
+                  style={{
+                    width: 56,
+                    height: 56,
+                    display: "grid",
+                    placeItems: "center",
+                    border: `1px solid ${toneColor(area.tone)}66`,
+                    color: toneColor(area.tone),
+                    fontFamily: theme.fonts.mono,
+                    fontSize: 20,
+                    fontWeight: 600,
+                  }}
+                >
+                  0{index + 1}
+                </div>
+                <div
+                  style={{ display: "flex", flexDirection: "column", gap: 14 }}
+                >
+                  <h3
                     style={{
-                      fontFamily: theme.fonts.mono,
-                      fontSize: 16,
-                      letterSpacing: "0.06em",
-                      textTransform: "uppercase",
-                      color: theme.colors.tones[area.tone],
-                    }}
-                  >
-                    Capability {String(index + 1).padStart(2, "0")}
-                  </div>
-                  <div
-                    style={{
-                      fontFamily: theme.fonts.heading,
+                      margin: 0,
+                      color: theme.colors.text.primary,
+                      fontFamily: theme.fonts.display,
                       fontSize: 40,
                       lineHeight: 1,
-                      margin: 0,
+                      fontWeight: 800,
+                      letterSpacing: 0,
                     }}
                   >
                     {area.title}
-                  </div>
-                  <p
-                    style={{
-                      margin: 0,
-                      color: theme.colors.text.secondary,
-                      fontSize: 23,
-                      lineHeight: 1.45,
-                    }}
-                  >
+                  </h3>
+                  <BodyText size={20} maxWidth={650}>
                     {area.blurb}
-                  </p>
-                  <div style={{ display: "flex", flexWrap: "wrap", gap: 12 }}>
+                  </BodyText>
+                  <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
                     {area.tools.map((tool) => (
                       <Tag key={tool} label={tool} tone={area.tone} />
                     ))}
                   </div>
                 </div>
-              </GlassCard>
-            </div>
-          );
-        })}
+              </div>
+            </BrandPanel>
+          ))}
+        </div>
       </div>
-    </ShowcaseShell>
+    </ChapterFrame>
   );
 };
